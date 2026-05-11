@@ -1,0 +1,19 @@
+{
+  "name": "drdoctor-playwright",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "auth": "playwright test --project=setup"
+  },
+  "devDependencies": {
+    "@playwright/test": "latest",
+    "@axe-core/playwright": "latest",
+    "@types/node": "latest",
+    "dotenv": "latest",
+    "typescript": "latest"
+  }
+}

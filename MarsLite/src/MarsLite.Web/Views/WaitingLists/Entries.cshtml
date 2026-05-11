@@ -1,0 +1,117 @@
+@{
+    ViewData["Title"] = "Waiting Lists — Entries";
+    var pid = (int)ViewBag.ProviderId;
+}
+
+<!-- Page header -->
+<div class="dd-page-hdr">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/waitinglists/@pid">Waiting Lists</a></li>
+            <li class="breadcrumb-item active">Entries</li>
+        </ol>
+    </nav>
+    <div class="d-flex align-items-center justify-content-between">
+        <h1 class="page-title">Waiting Lists</h1>
+        <span class="page-meta"><i class="bi bi-building me-1"></i>Provider @pid</span>
+    </div>
+    <ul class="nav dd-tabs">
+        <li class="nav-item"><a class="nav-link" href="/waitinglists/@pid">Overview</a></li>
+        <li class="nav-item"><a class="nav-link" href="/waitinglists/@pid/config">Configuration</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/waitinglists/@pid/entries">Entries</a></li>
+        <li class="nav-item"><a class="nav-link" href="/waitinglists/@pid/patientlists">Patient Lists</a></li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="dd-body">
+    <div class="dd-card p-0">
+        <div class="dd-card-hdr px-4 pt-4">
+            <h2 class="dd-card-title">
+                <i class="bi bi-person-lines-fill me-2 text-primary"></i>All Entries
+                <span class="text-muted fw-normal" style="font-size:.8rem;">— 5 patients</span>
+            </h2>
+            <div class="d-flex gap-2">
+                <input type="search" class="form-control form-control-sm" placeholder="Search patient…"
+                       style="width:200px; border-radius:7px; font-size:.83rem;" />
+                <button class="btn-dd-primary btn btn-sm"><i class="bi bi-plus me-1"></i>Add entry</button>
+            </div>
+        </div>
+        <table class="dd-table">
+            <thead>
+                <tr>
+                    <th>Ref</th>
+                    <th>Patient</th>
+                    <th>Added</th>
+                    <th>Wait (days)</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>WL-001</code></td>
+                    <td>
+                        <div class="fw-medium">Sarah Johnson</div>
+                        <div class="text-muted" style="font-size:.78rem;">DOB: 12 Mar 1975</div>
+                    </td>
+                    <td>10 Jan 2026</td>
+                    <td><span class="text-danger fw-medium">48</span></td>
+                    <td><span class="pill pill-cancelled">Urgent</span></td>
+                    <td><span class="pill pill-waiting">Waiting</span></td>
+                    <td><button class="btn-dd-ghost btn btn-sm">Assign</button></td>
+                </tr>
+                <tr>
+                    <td><code>WL-002</code></td>
+                    <td>
+                        <div class="fw-medium">Michael Chen</div>
+                        <div class="text-muted" style="font-size:.78rem;">DOB: 05 Aug 1982</div>
+                    </td>
+                    <td>15 Jan 2026</td>
+                    <td>43</td>
+                    <td><span class="pill pill-new">Routine</span></td>
+                    <td><span class="pill pill-waiting">Waiting</span></td>
+                    <td><button class="btn-dd-ghost btn btn-sm">Assign</button></td>
+                </tr>
+                <tr>
+                    <td><code>WL-003</code></td>
+                    <td>
+                        <div class="fw-medium">Emma Williams</div>
+                        <div class="text-muted" style="font-size:.78rem;">DOB: 22 Nov 1990</div>
+                    </td>
+                    <td>20 Jan 2026</td>
+                    <td>38</td>
+                    <td><span class="pill pill-new">Routine</span></td>
+                    <td><span class="pill pill-confirmed">Assigned</span></td>
+                    <td><button class="btn-dd-ghost btn btn-sm">View</button></td>
+                </tr>
+                <tr>
+                    <td><code>WL-004</code></td>
+                    <td>
+                        <div class="fw-medium">James Patel</div>
+                        <div class="text-muted" style="font-size:.78rem;">DOB: 17 Apr 1967</div>
+                    </td>
+                    <td>02 Feb 2026</td>
+                    <td>25</td>
+                    <td><span class="pill pill-cancelled">Urgent</span></td>
+                    <td><span class="pill pill-waiting">Waiting</span></td>
+                    <td><button class="btn-dd-ghost btn btn-sm">Assign</button></td>
+                </tr>
+                <tr>
+                    <td><code>WL-005</code></td>
+                    <td>
+                        <div class="fw-medium">Lisa Thompson</div>
+                        <div class="text-muted" style="font-size:.78rem;">DOB: 30 Jun 1955</div>
+                    </td>
+                    <td>14 Feb 2026</td>
+                    <td>13</td>
+                    <td><span class="pill pill-new">Routine</span></td>
+                    <td><span class="pill pill-confirmed">Assigned</span></td>
+                    <td><button class="btn-dd-ghost btn btn-sm">View</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

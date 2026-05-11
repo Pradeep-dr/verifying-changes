@@ -1,0 +1,108 @@
+#!/bin/bash
+# DrDoctor pre-commit hook
+#
+# Runs Playwright tests for any staged UI files before allowing a commit.
+#
+# - Tests pass  → commit proceeds
+# - Tests fail  → commit blocked. Run: cd DrDoctor.Playwright && npx playwright show-report
+# - No test yet → you are told to write one with Claude Code
+#
+# Activate once after clone:
+#   git config core.hooksPath .githooks
+
+set -e
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+PLAYWRIGHT_DIR="$REPO_ROOT/DrDoctor.Playwright"
+
+echo "[pre-commit] -----------------------------------------------------------"
+echo "[pre-commit] DrDoctor automated UI verification"
+echo "[pre-commit] -----------------------------------------------------------"
+
+# 1. Find staged UI files
+STAGED_UI=$(git diff --cached --name-only --diff-filter=ACMR \
+    | grep -E "^src/(Mars|MyDrDoctor)/.*\.(cs|cshtml|html|js|ts|css|scss)$" \
+    || true)
+
+if [ -z "$STAGED_UI" ]; then
+    echo "[pre-commit] No staged UI changes. Skipping Playwright."
+    exit 0
+fi
+
+echo "[pre-commit] Detected staged UI files:"
+echo "$STAGED_UI" | sed 's/^/             /'
+echo ""
+
+# 2. Map source files to Playwright specs.
+#
+#    HOW TO ADD A NEW PAGE:
+#    Step 1 — Write the spec using Claude Code:
+#               /project:new-playwright-test /your-page-url/
+#    Step 2 — Add an entry below following this pattern:
+#
+#               src/Mars/Mars/Modules/YourModule.cs|src/Mars/Mars/Views/YourPage/*)
+#                   SPECS_TO_RUN="$SPECS_TO_RUN tests/your-page.spec.ts"
+#                   ;;
+#
+SPECS_TO_RUN=""
+UNMAPPED=""
+
+while IFS= read -r FILE; do
+    [ -z "$FILE" ] && continue
+    case "$FILE" in
+        # -----------------------------------------------------------------
+        # ADD YOUR PAGE MAPPINGS HERE
+        # -----------------------------------------------------------------
+        *)
+            UNMAPPED="$UNMAPPED\n  - $FILE"
+            ;;
+    esac
+done <<< "$STAGED_UI"
+
+# Deduplicate
+SPECS_TO_RUN=$(echo "$SPECS_TO_RUN" | tr ' ' '\n' | sort -u | grep -v '^$' | tr '\n' ' ')
+
+if [ -n "$UNMAPPED" ]; then
+    echo "[pre-commit] No Playwright spec found for:"
+    echo -e "$UNMAPPED"
+    echo ""
+    echo "[pre-commit] To write a test, open Claude Code and run:"
+    echo "[pre-commit]   /project:new-playwright-test /your-page-url/"
+    echo "[pre-commit] Then add the mapping in .githooks/pre-commit."
+    echo ""
+fi
+
+if [ -z "$SPECS_TO_RUN" ]; then
+    echo "[pre-commit] No mapped specs for staged files. Allowing commit."
+    exit 0
+fi
+
+# 3. Check Playwright is installed
+if [ ! -f "$PLAYWRIGHT_DIR/package.json" ]; then
+    echo "[pre-commit] WARNING: DrDoctor.Playwright not found. Skipping."
+    exit 0
+fi
+
+# 4. Run the mapped specs
+echo "[pre-commit] Running:"
+for SPEC in $SPECS_TO_RUN; do
+    echo "             - $SPEC"
+done
+echo ""
+
+if ! ( cd "$PLAYWRIGHT_DIR" && npx playwright test $SPECS_TO_RUN --workers=1 --reporter=list,html ); then
+    echo ""
+    echo "[pre-commit] -----------------------------------------------------------"
+    echo "[pre-commit] X  Tests failed. Commit blocked."
+    echo "[pre-commit]"
+    echo "[pre-commit]    View report : cd DrDoctor.Playwright && npx playwright show-report"
+    echo "[pre-commit]    Emergency   : git commit --no-verify"
+    echo "[pre-commit] -----------------------------------------------------------"
+    exit 1
+fi
+
+echo ""
+echo "[pre-commit] -----------------------------------------------------------"
+echo "[pre-commit] OK  All tests passed. Proceeding with commit."
+echo "[pre-commit] -----------------------------------------------------------"
+exit 0

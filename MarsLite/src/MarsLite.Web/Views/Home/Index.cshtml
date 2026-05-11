@@ -1,0 +1,117 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="dd-body">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h1 class="h4 fw-semibold mb-1">Dashboard</h1>
+            <p class="text-muted mb-0" style="font-size:.85rem;">Mars Staff Portal — Playwright POC target</p>
+        </div>
+        <span class="dd-tag dd-tag-blue"><i class="bi bi-check-circle me-1"></i>All systems operational</span>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="dd-stat-bar d-flex mb-4">
+        <div class="dd-stat flex-fill">
+            <div class="dd-stat-val text-primary">2</div>
+            <div class="dd-stat-lbl">Modules</div>
+        </div>
+        <div class="dd-stat flex-fill">
+            <div class="dd-stat-val" style="color:var(--dd-teal);">6</div>
+            <div class="dd-stat-lbl">Routes</div>
+        </div>
+        <div class="dd-stat flex-fill">
+            <div class="dd-stat-val text-success">12</div>
+            <div class="dd-stat-lbl">Playwright Tests</div>
+        </div>
+        <div class="dd-stat flex-fill">
+            <div class="dd-stat-val" style="color:var(--dd-warning);">3</div>
+            <div class="dd-stat-lbl">Providers</div>
+        </div>
+    </div>
+
+    <!-- Module cards -->
+    <h2 class="h6 fw-semibold text-muted text-uppercase mb-3" style="letter-spacing:.5px; font-size:.75rem;">Modules</h2>
+    <div class="row g-3">
+
+        <div class="col-md-6 col-lg-4">
+            <a href="/waitinglists/1" class="dd-module-card">
+                <div class="dd-module-icon blue"><i class="bi bi-list-ul" style="color:var(--dd-primary);"></i></div>
+                <div class="dd-module-name">Waiting Lists</div>
+                <div class="dd-module-desc">Manage patient waiting lists, entries, and configuration by provider.</div>
+                <div class="d-flex gap-2">
+                    <span class="dd-tag dd-tag-blue">4 sub-routes</span>
+                    <span class="dd-tag dd-tag-blue">Nancy pattern</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <a href="/appointments" class="dd-module-card">
+                <div class="dd-module-icon teal"><i class="bi bi-calendar-check" style="color:var(--dd-teal);"></i></div>
+                <div class="dd-module-name">Appointments</div>
+                <div class="dd-module-desc">View and manage patient appointments. Supports list and detail routes.</div>
+                <div class="d-flex gap-2">
+                    <span class="dd-tag dd-tag-teal">2 routes</span>
+                    <span class="dd-tag dd-tag-teal">GUID routing</span>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Route reference -->
+    <h2 class="h6 fw-semibold text-muted text-uppercase mt-4 mb-3" style="letter-spacing:.5px; font-size:.75rem;">Route Reference</h2>
+    <div class="dd-card p-0">
+        <table class="dd-table">
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>URL</th>
+                    <th>Controller Action</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="pill pill-new">GET</span></td>
+                    <td><code>/waitinglists/1</code></td>
+                    <td>WaitingLists.Index</td>
+                    <td>Root overview</td>
+                </tr>
+                <tr>
+                    <td><span class="pill pill-new">GET</span></td>
+                    <td><code>/waitinglists/1/config</code></td>
+                    <td>WaitingLists.Config</td>
+                    <td>Configuration</td>
+                </tr>
+                <tr>
+                    <td><span class="pill pill-new">GET</span></td>
+                    <td><code>/waitinglists/1/entries</code></td>
+                    <td>WaitingLists.Entries</td>
+                    <td>Entries table</td>
+                </tr>
+                <tr>
+                    <td><span class="pill pill-new">GET</span></td>
+                    <td><code>/waitinglists/1/patientlists</code></td>
+                    <td>WaitingLists.PatientLists</td>
+                    <td>Patient groups</td>
+                </tr>
+                <tr>
+                    <td><span class="pill pill-new">GET</span></td>
+                    <td><code>/appointments</code></td>
+                    <td>Appointments.Index</td>
+                    <td>Appointments list</td>
+                </tr>
+                <tr>
+                    <td><span class="pill pill-new">GET</span></td>
+                    <td><code>/appointments/{guid}</code></td>
+                    <td>Appointments.Details</td>
+                    <td>Appointment detail</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
