@@ -1,107 +1,25 @@
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
 @{
-    ViewData["Title"] = "Appointments";
+    ViewBag.Title = "Appointments";
 }
 
-<!-- Page header -->
 <div class="dd-page-hdr">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-            <li class="breadcrumb-item active">Appointments</li>
-        </ol>
-    </nav>
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <h1 class="page-title">Appointments</h1>
-        <button class="btn-dd-primary btn btn-sm mb-3"><i class="bi bi-plus me-1"></i>Book appointment</button>
+    <div class="dd-page-crumb">
+        <a href="/">Dashboard</a>
+        <span class="sep">/</span>
+        <span class="active">Appointments</span>
     </div>
+    <h1 class="dd-page-title">Appointments</h1>
 </div>
 
-<!-- Content -->
-<div class="dd-body">
-
-    <!-- Stats -->
-    <div class="dd-stat-bar d-flex mb-4">
-        <div class="dd-stat flex-fill">
-            <div class="dd-stat-val text-primary">12</div>
-            <div class="dd-stat-lbl">Today</div>
+<div class="dd-card">
+    <div class="dd-card-body">
+        <div class="dd-empty">
+            <div class="dd-empty-icon"><i class="bi bi-calendar-x"></i></div>
+            <p>No appointments yet. This page is a routing stub to demonstrate Nancy's GUID route constraint.</p>
+            <a href="/appointments/00000000-0000-0000-0000-000000000001" class="dd-btn-ghost dd-btn-sm mt-2">
+                View sample appointment
+            </a>
         </div>
-        <div class="dd-stat flex-fill">
-            <div class="dd-stat-val text-success">8</div>
-            <div class="dd-stat-lbl">Confirmed</div>
-        </div>
-        <div class="dd-stat flex-fill">
-            <div class="dd-stat-val" style="color:var(--dd-warning);">3</div>
-            <div class="dd-stat-lbl">Pending</div>
-        </div>
-        <div class="dd-stat flex-fill">
-            <div class="dd-stat-val" style="color:var(--dd-danger);">1</div>
-            <div class="dd-stat-lbl">Cancelled</div>
-        </div>
-    </div>
-
-    <div class="dd-card p-0">
-        <div class="dd-card-hdr px-4 pt-4">
-            <h2 class="dd-card-title"><i class="bi bi-calendar-check me-2" style="color:var(--dd-teal);"></i>Upcoming Appointments</h2>
-            <input type="search" class="form-control form-control-sm" placeholder="Search…"
-                   style="width:200px; border-radius:7px; font-size:.83rem;" />
-        </div>
-        <table class="dd-table">
-            <thead>
-                <tr>
-                    <th>Patient</th>
-                    <th>Date &amp; Time</th>
-                    <th>Clinician</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <div class="fw-medium">Jane Smith</div>
-                        <div class="text-muted" style="font-size:.78rem;">Ref: APT-001</div>
-                    </td>
-                    <td>15 May 2026, 10:00</td>
-                    <td>Dr. A. Rahman</td>
-                    <td>Follow-up</td>
-                    <td><span class="pill pill-confirmed">Confirmed</span></td>
-                    <td><a href="/appointments/a1b2c3d4-0000-0000-0000-000000000001" class="btn-dd-ghost btn btn-sm">View</a></td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="fw-medium">John Doe</div>
-                        <div class="text-muted" style="font-size:.78rem;">Ref: APT-002</div>
-                    </td>
-                    <td>16 May 2026, 14:30</td>
-                    <td>Dr. S. Patel</td>
-                    <td>New patient</td>
-                    <td><span class="pill pill-new">Pending</span></td>
-                    <td><a href="/appointments/a1b2c3d4-0000-0000-0000-000000000002" class="btn-dd-ghost btn btn-sm">View</a></td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="fw-medium">Mary Clarke</div>
-                        <div class="text-muted" style="font-size:.78rem;">Ref: APT-003</div>
-                    </td>
-                    <td>16 May 2026, 15:00</td>
-                    <td>Dr. A. Rahman</td>
-                    <td>Review</td>
-                    <td><span class="pill pill-confirmed">Confirmed</span></td>
-                    <td><a href="/appointments/a1b2c3d4-0000-0000-0000-000000000003" class="btn-dd-ghost btn btn-sm">View</a></td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="fw-medium">Robert Lee</div>
-                        <div class="text-muted" style="font-size:.78rem;">Ref: APT-004</div>
-                    </td>
-                    <td>17 May 2026, 09:15</td>
-                    <td>Dr. K. Wong</td>
-                    <td>Follow-up</td>
-                    <td><span class="pill pill-cancelled">Cancelled</span></td>
-                    <td><a href="/appointments/a1b2c3d4-0000-0000-0000-000000000004" class="btn-dd-ghost btn btn-sm">View</a></td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </div>

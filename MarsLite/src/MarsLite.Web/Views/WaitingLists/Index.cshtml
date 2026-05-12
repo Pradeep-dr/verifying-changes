@@ -1,94 +1,62 @@
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<MarsLite.Web.Modules.WaitingListsShellVm>
 @{
-    ViewData["Title"] = "Waiting Lists";
-    var pid = (int)ViewBag.ProviderId;
+    ViewBag.Title = "Waiting Lists";
 }
 
-<!-- Page header -->
+@*
+    AngularJS HTML5 mode requires a <base href="..."> in <head>. Without it, the app
+    throws [$location:nobase] at bootstrap. The base path is the same one Nancy uses
+    to mount the AngularJS app (e.g. "/waitinglists/1/"). All relative URLs in the
+    AngularJS partials resolve from here.
+*@
+@section Head {
+    <base href="@Model.AngularBase" />
+}
+
 <div class="dd-page-hdr">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-            <li class="breadcrumb-item active">Waiting Lists</li>
-        </ol>
-    </nav>
-    <div class="d-flex align-items-center justify-content-between">
-        <h1 class="page-title">Waiting Lists</h1>
-        <span class="page-meta"><i class="bi bi-building me-1"></i>Provider @pid</span>
+    <div class="dd-page-crumb">
+        <a href="/">Dashboard</a>
+        <span class="sep">/</span>
+        <span class="active">Waiting Lists</span>
     </div>
-    <ul class="nav dd-tabs">
-        <li class="nav-item"><a class="nav-link active" href="/waitinglists/@pid">Overview</a></li>
-        <li class="nav-item"><a class="nav-link" href="/waitinglists/@pid/config">Configuration</a></li>
-        <li class="nav-item"><a class="nav-link" href="/waitinglists/@pid/entries">Entries</a></li>
-        <li class="nav-item"><a class="nav-link" href="/waitinglists/@pid/patientlists">Patient Lists</a></li>
-    </ul>
+    <h1 class="dd-page-title">Waiting Lists</h1>
 </div>
 
-<!-- Content -->
-<div class="dd-body">
+<ul class="dd-tabs">
+    <li><a href="@(Model.AngularBase)" data-route="/">Overview</a></li>
+    <li><a href="@(Model.AngularBase)config" data-route="/config">Configuration</a></li>
+    <li><a href="@(Model.AngularBase)entries" data-route="/entries">Entries</a></li>
+    <li><a href="@(Model.AngularBase)patientlists" data-route="/patientlists">Patient Lists</a></li>
+</ul>
 
-    <!-- Stats -->
-    <div class="dd-stat-bar d-flex mb-4">
-        <div class="dd-stat flex-fill">
-            <div class="dd-stat-val text-primary">3</div>
-            <div class="dd-stat-lbl">Active Lists</div>
+<div ng-app="WaitingListsApp">
+    <div ng-controller="WaitingListsController"
+         ng-init="init(@Model.ProviderId, '@Model.AngularBase')">
+        <div data-record="true" ng-view>
+            We're currently loading this page, please hold on...
         </div>
-        <div class="dd-stat flex-fill">
-            <div class="dd-stat-val" style="color:var(--dd-warning);">24</div>
-            <div class="dd-stat-lbl">Total Entries</div>
-        </div>
-        <div class="dd-stat flex-fill">
-            <div class="dd-stat-val text-success">8</div>
-            <div class="dd-stat-lbl">Assigned Today</div>
-        </div>
-        <div class="dd-stat flex-fill">
-            <div class="dd-stat-val" style="color:var(--dd-danger);">2</div>
-            <div class="dd-stat-lbl">Overdue</div>
-        </div>
-    </div>
-
-    <!-- Waiting lists table -->
-    <div class="dd-card p-0">
-        <div class="dd-card-hdr px-4 pt-4">
-            <h2 class="dd-card-title"><i class="bi bi-list-ul me-2 text-primary"></i>Active Waiting Lists</h2>
-            <button class="btn-dd-primary btn"><i class="bi bi-plus me-1"></i>New List</button>
-        </div>
-        <table class="dd-table">
-            <thead>
-                <tr>
-                    <th>List Name</th>
-                    <th>Specialty</th>
-                    <th>Entries</th>
-                    <th>Avg Wait</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="fw-medium">General Surgery WL</td>
-                    <td>General Surgery</td>
-                    <td>12</td>
-                    <td>18 days</td>
-                    <td><span class="pill pill-confirmed">Active</span></td>
-                    <td><a href="/waitinglists/@pid/entries" class="btn-dd-ghost btn btn-sm">View entries</a></td>
-                </tr>
-                <tr>
-                    <td class="fw-medium">Orthopaedics WL</td>
-                    <td>Orthopaedics</td>
-                    <td>7</td>
-                    <td>32 days</td>
-                    <td><span class="pill pill-confirmed">Active</span></td>
-                    <td><a href="/waitinglists/@pid/entries" class="btn-dd-ghost btn btn-sm">View entries</a></td>
-                </tr>
-                <tr>
-                    <td class="fw-medium">Cardiology WL</td>
-                    <td>Cardiology</td>
-                    <td>5</td>
-                    <td>45 days</td>
-                    <td><span class="pill pill-waiting">Paused</span></td>
-                    <td><a href="/waitinglists/@pid/entries" class="btn-dd-ghost btn btn-sm">View entries</a></td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </div>
+
+@section Scripts {
+    <!-- AngularJS 1.8 — matches real Mars's AngularJS stack -->
+    <script src="https://cdn.jsdelivr.net/npm/angular@1.8.3/angular.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/angular-route@1.8.3/angular-route.min.js"></script>
+    <script src="/Scripts/app/waitingLists/waitingLists.app.js"></script>
+    <script src="/Scripts/app/waitingLists/waitingListsController.js"></script>
+    <script>
+        angular.module('WaitingListsApp').constant('wlBootstrap', {
+            providerId:  @Model.ProviderId,
+            angularBase: '@Model.AngularBase'
+        });
+
+        // Mark the active tab based on the current path (AngularJS HTML5 mode)
+        (function () {
+            var base = '@Model.AngularBase';
+            var path = window.location.pathname.replace(base.replace(/\/$/, ''), '') || '/';
+            document.querySelectorAll('.dd-tabs a').forEach(function (a) {
+                if (a.getAttribute('data-route') === path) a.classList.add('active');
+            });
+        })();
+    </script>
+}

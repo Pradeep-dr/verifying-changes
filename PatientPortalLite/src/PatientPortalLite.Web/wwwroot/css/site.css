@@ -1,0 +1,475 @@
+/* ════════════════════════════════════════════════════════════════════════
+   DrDoctor Patient Portal theme — full-width blue navbar, light grey body,
+   white cards, blue primary buttons. Mirrors the real my.drdoctor.co.uk UI.
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --pp-primary:        #1559A6;   /* nav / primary buttons */
+  --pp-primary-dark:   #0F4C8C;
+  --pp-primary-darker: #0A3D75;
+  --pp-primary-50:     #F0F6FC;
+  --pp-primary-100:    #DCE9F7;   /* info banner bg */
+  --pp-primary-200:    #B7CDE8;
+  --pp-bg:             #F3F5F8;
+  --pp-surface:        #FFFFFF;
+  --pp-border:         #E2E8F0;
+  --pp-border-strong:  #CBD5E1;
+  --pp-text:           #1E293B;
+  --pp-text-strong:    #0F172A;
+  --pp-muted:          #64748B;
+  --pp-muted-strong:   #475569;
+  --pp-notice-bg:      #E5E7EB;   /* grey notice banner */
+  --pp-danger:         #B91C1C;
+  --pp-success:        #15803D;
+  --pp-amber:          #B45309;
+  --pp-content-w:      1100px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  background: var(--pp-bg);
+  color: var(--pp-text);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  margin: 0;
+  min-height: 100%;
+}
+a { color: var(--pp-primary); }
+a:hover { color: var(--pp-primary-dark); }
+
+.pp-app { min-height: 100vh; display: flex; flex-direction: column; }
+.pp-main { flex: 1 0 auto; padding: 1.5rem 0 2.5rem; }
+.pp-container {
+  max-width: var(--pp-content-w);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ── Navbar ─────────────────────────────────────────────────────────── */
+.pp-nav {
+  background: var(--pp-primary);
+  color: #fff;
+}
+.pp-nav-inner {
+  max-width: var(--pp-content-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  padding: 0 1.25rem;
+  min-height: 56px;
+}
+.pp-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex: 1;
+  align-items: stretch;
+}
+.pp-nav-links li { display: flex; }
+.pp-nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0 1.1rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid transparent;
+}
+.pp-nav-links a:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+.pp-nav-links a.active {
+  background: var(--pp-primary-darker);
+  color: #fff;
+}
+.pp-nav-right {
+  display: flex;
+  align-items: stretch;
+  margin-left: auto;
+}
+.pp-nav-right a, .pp-nav-right button {
+  color: #fff;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0 1.1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.pp-nav-right a:hover, .pp-nav-right button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Banners (notice + info) ───────────────────────────────────────── */
+.pp-banner {
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: var(--pp-text-strong);
+}
+.pp-banner i { font-size: 1.15rem; margin-top: 0.05rem; flex-shrink: 0; }
+.pp-banner-notice {
+  background: var(--pp-notice-bg);
+  border: 1px solid var(--pp-border);
+}
+.pp-banner-info {
+  background: var(--pp-primary-100);
+  border: 1px solid var(--pp-primary-200);
+}
+.pp-banner a { color: var(--pp-primary-dark); text-decoration: underline; font-weight: 600; }
+.pp-banner-title { font-weight: 600; margin-bottom: 0.1rem; }
+
+/* ── Cards ──────────────────────────────────────────────────────────── */
+.pp-card {
+  background: var(--pp-surface);
+  border: 1px solid var(--pp-border);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.pp-card.p-0 { padding: 0; }
+.pp-card-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.9rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--pp-border);
+}
+.pp-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--pp-text-strong);
+}
+
+/* Appointment card (used on Home + Appointments list) */
+.pp-appt-card {
+  background: var(--pp-surface);
+  border: 1px solid var(--pp-border);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.pp-appt-card:hover {
+  border-color: var(--pp-primary-200);
+  box-shadow: 0 4px 12px rgba(21, 89, 166, 0.08);
+}
+.pp-appt-date {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--pp-text-strong);
+  margin-bottom: 0.85rem;
+}
+.pp-appt-service {
+  font-weight: 600;
+  color: var(--pp-text);
+  margin-bottom: 0.2rem;
+}
+.pp-appt-location {
+  color: var(--pp-text);
+  font-size: 0.95rem;
+}
+
+/* ── Page header ────────────────────────────────────────────────────── */
+.pp-page-hdr { margin-bottom: 1.25rem; }
+.pp-page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  color: var(--pp-text-strong);
+}
+.pp-page-sub { color: var(--pp-muted); font-size: 0.95rem; margin: 0; }
+.pp-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--pp-primary);
+  text-decoration: underline;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+/* ── Tabs (detail page) ─────────────────────────────────────────────── */
+.pp-tabs {
+  display: flex;
+  gap: 0.35rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+}
+.pp-tabs li { flex: 1; }
+.pp-tabs a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 1rem 1.25rem;
+  background: var(--pp-notice-bg);
+  color: var(--pp-text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px 6px 0 0;
+}
+.pp-tabs a:hover { background: #D1D5DB; color: var(--pp-text); }
+.pp-tabs a.active {
+  background: var(--pp-surface);
+  color: var(--pp-primary-dark);
+  box-shadow: 0 -1px 0 var(--pp-border) inset;
+  border-top: 1px solid var(--pp-border);
+  border-left: 1px solid var(--pp-border);
+  border-right: 1px solid var(--pp-border);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────── */
+.pp-btn-primary {
+  background: var(--pp-primary);
+  color: #fff !important;
+  border: 1px solid var(--pp-primary);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  text-decoration: none;
+  width: 100%;
+}
+.pp-btn-primary:hover { background: var(--pp-primary-dark); border-color: var(--pp-primary-dark); }
+
+.pp-btn-secondary {
+  background: var(--pp-notice-bg);
+  color: var(--pp-text-strong);
+  border: 1px solid var(--pp-border-strong);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  text-decoration: none;
+  width: 100%;
+}
+.pp-btn-secondary:hover { background: #D1D5DB; }
+
+.pp-btn-ghost {
+  background: var(--pp-surface);
+  color: var(--pp-primary);
+  border: 1px solid var(--pp-border-strong);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.45rem 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+.pp-btn-ghost:hover { background: var(--pp-primary-50); border-color: var(--pp-primary-200); }
+
+.pp-text-link {
+  background: none;
+  border: none;
+  color: var(--pp-primary);
+  text-decoration: underline;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* ── Definition list ──────────────────────────────────────────────── */
+.pp-appt-detail-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+.pp-appt-detail-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
+}
+.pp-appt-detail-list .icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--pp-bg);
+  color: var(--pp-muted-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+}
+
+/* ── Form fields ──────────────────────────────────────────────────── */
+.pp-field { display: block; margin-bottom: 0.85rem; }
+.pp-field label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--pp-text-strong);
+  margin-bottom: 0.3rem;
+}
+.pp-field .form-control,
+.pp-field input[type="text"],
+.pp-field input[type="email"],
+.pp-field input[type="password"],
+.pp-field input[type="date"],
+.pp-field input[type="number"],
+.pp-field input[type="tel"],
+.pp-field select {
+  width: 100%;
+  font-size: 0.95rem;
+  border: 1px solid var(--pp-border-strong);
+  border-radius: 4px;
+  padding: 0.55rem 0.75rem;
+  background: var(--pp-surface);
+}
+.pp-field input:focus,
+.pp-field select:focus,
+.pp-field .form-control:focus {
+  outline: none;
+  border-color: var(--pp-primary);
+  box-shadow: 0 0 0 3px rgba(21, 89, 166, 0.15);
+}
+.pp-otc-input {
+  font-size: 1.6rem !important;
+  letter-spacing: 0.5rem;
+  text-align: center;
+  font-family: ui-monospace, "SF Mono", monospace;
+}
+
+/* ── Letter list ──────────────────────────────────────────────────── */
+.pp-letter-list { list-style: none; padding: 0; margin: 0; }
+.pp-letter-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.95rem 1.25rem;
+  border-bottom: 1px solid var(--pp-border);
+}
+.pp-letter-list li:last-child { border-bottom: none; }
+.pp-letter-list li.unread { background: var(--pp-primary-50); }
+.pp-letter-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: var(--pp-bg);
+  color: var(--pp-muted-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+}
+.pp-letter-list li.unread .pp-letter-icon {
+  background: var(--pp-primary-100);
+  color: var(--pp-primary-dark);
+}
+.pp-letter-body { flex: 1; }
+.pp-letter-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--pp-text);
+  text-decoration: none;
+}
+.pp-letter-title:hover { color: var(--pp-primary); text-decoration: underline; }
+.pp-letter-meta { color: var(--pp-muted); font-size: 0.82rem; display: flex; gap: 0.85rem; margin-top: 0.1rem; }
+.pp-letter-content {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* ── Pills ────────────────────────────────────────────────────────── */
+.pp-pill {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+}
+.pp-pill-info  { background: var(--pp-primary-100); color: var(--pp-primary-dark); }
+.pp-pill-amber { background: #FEF3C7; color: var(--pp-amber); }
+
+/* ── Footer ───────────────────────────────────────────────────────── */
+.pp-footer {
+  text-align: center;
+  padding: 1.5rem 1rem 2.5rem;
+  font-size: 0.85rem;
+  color: var(--pp-muted);
+}
+.pp-footer a { color: var(--pp-primary); text-decoration: underline; display: inline-block; margin: 0 0.5rem; }
+.pp-footer .brand { color: var(--pp-text); }
+
+/* ── Auth screens ─────────────────────────────────────────────────── */
+.pp-auth-body {
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, var(--pp-bg) 0%, var(--pp-primary-50) 100%);
+}
+.pp-auth-card-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+.pp-auth-card {
+  background: var(--pp-surface);
+  border: 1px solid var(--pp-border);
+  border-radius: 8px;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.1);
+  padding: 2.25rem 2rem;
+  width: 100%;
+  max-width: 420px;
+}
+.pp-auth-brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--pp-primary);
+  letter-spacing: -0.3px;
+  margin-bottom: 1.5rem;
+}
+.pp-auth-title { font-size: 1.3rem; font-weight: 700; margin: 0 0 0.35rem; color: var(--pp-text-strong); }
+.pp-auth-sub { color: var(--pp-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+.pp-auth-hint {
+  background: var(--pp-primary-50);
+  border: 1px solid var(--pp-primary-100);
+  border-radius: 4px;
+  padding: 0.8rem 0.95rem;
+  font-size: 0.85rem;
+  color: var(--pp-text);
+}
+.pp-auth-hint code { color: var(--pp-primary-dark); background: transparent; padding: 0; font-weight: 600; }
+.pp-auth-hint ul { list-style: none; padding: 0; margin: 0.25rem 0 0; }
+
+/* ── Misc utilities (referenced in views) ─────────────────────────── */
+.text-muted    { color: var(--pp-muted) !important; }
+.fw-medium     { font-weight: 500; }
+.fw-semibold   { font-weight: 600; }
+.fw-bold       { font-weight: 700; }

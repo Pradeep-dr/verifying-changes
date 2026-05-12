@@ -1,0 +1,94 @@
+<div ng-if="vm.loading" class="dd-empty">
+    <div class="spinner-border" role="status" style="color:var(--dd-primary);">
+        <span class="visually-hidden">Loading…</span>
+    </div>
+</div>
+
+<div ng-if="!vm.loading" class="row g-3">
+
+    <div class="col-lg-7">
+        <div class="dd-card">
+            <div class="dd-card-hdr">
+                <h2 class="dd-card-title">General Settings</h2>
+            </div>
+            <div class="dd-card-body">
+                <div class="row g-3">
+                    <div class="col-sm-6 dd-field">
+                        <label for="maxCapacity">Max Capacity</label>
+                        <input id="maxCapacity" type="number" ng-model="vm.config.maxCapacity" />
+                    </div>
+                    <div class="col-sm-6 dd-field">
+                        <label for="defaultPriority">Default Priority</label>
+                        <select id="defaultPriority" ng-model="vm.config.defaultPriority">
+                            <option>Routine</option>
+                            <option>Urgent</option>
+                            <option>Emergency</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 dd-field">
+                        <label for="targetWait">Target Wait (days)</label>
+                        <input id="targetWait" type="number" ng-model="vm.config.targetWaitDays" />
+                    </div>
+                    <div class="col-sm-6 dd-field">
+                        <label for="autoAssign">Auto-assign</label>
+                        <select id="autoAssign" ng-model="vm.config.autoAssign">
+                            <option ng-value="true">Enabled</option>
+                            <option ng-value="false">Disabled</option>
+                        </select>
+                    </div>
+                    <div class="col-12 dd-field">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" rows="2" ng-model="vm.config.notes"></textarea>
+                    </div>
+                </div>
+                <div class="mt-3 d-flex gap-2">
+                    <button class="dd-btn-primary">Save changes</button>
+                    <button class="dd-btn-ghost">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="dd-card">
+            <div class="dd-card-hdr">
+                <h2 class="dd-card-title">Notifications</h2>
+            </div>
+            <div class="dd-card-body">
+                <div class="d-flex flex-column gap-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="fw-medium" style="font-size:.875rem;">Email alerts</div>
+                            <div class="text-muted" style="font-size:.78rem;">Send when entry added or removed</div>
+                        </div>
+                        <div class="form-check form-switch mb-0">
+                            <input id="notifyEmail" class="form-check-input" type="checkbox" checked />
+                            <label class="visually-hidden" for="notifyEmail">Email alerts</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="fw-medium" style="font-size:.875rem;">Capacity warning</div>
+                            <div class="text-muted" style="font-size:.78rem;">Alert at 80% capacity</div>
+                        </div>
+                        <div class="form-check form-switch mb-0">
+                            <input id="notifyCapacity" class="form-check-input" type="checkbox" checked />
+                            <label class="visually-hidden" for="notifyCapacity">Capacity warning</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="fw-medium" style="font-size:.875rem;">Overdue reminders</div>
+                            <div class="text-muted" style="font-size:.78rem;">Weekly digest of overdue entries</div>
+                        </div>
+                        <div class="form-check form-switch mb-0">
+                            <input id="notifyOverdue" class="form-check-input" type="checkbox" />
+                            <label class="visually-hidden" for="notifyOverdue">Overdue reminders</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

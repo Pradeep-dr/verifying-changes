@@ -1,116 +1,26 @@
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
 @{
-    ViewData["Title"] = "Appointment Details";
-    var id = ViewBag.AppointmentId;
+    ViewBag.Title = "Appointment details";
 }
 
-<!-- Page header -->
 <div class="dd-page-hdr">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="/appointments">Appointments</a></li>
-            <li class="breadcrumb-item active">Details</li>
-        </ol>
-    </nav>
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <h1 class="page-title">Appointment Details</h1>
-        <div class="d-flex gap-2">
-            <button class="btn-dd-ghost btn btn-sm"><i class="bi bi-pencil me-1"></i>Edit</button>
-            <button class="btn btn-sm" style="border-radius:7px; font-size:.85rem; border:1px solid #fee2e2; color:#dc2626; background:#fff;">
-                <i class="bi bi-x-circle me-1"></i>Cancel
-            </button>
-        </div>
+    <div class="dd-page-crumb">
+        <a href="/">Dashboard</a>
+        <span class="sep">/</span>
+        <a href="/appointments">Appointments</a>
+        <span class="sep">/</span>
+        <span class="active">Detail</span>
     </div>
+    <h1 class="dd-page-title">Appointment details</h1>
 </div>
 
-<!-- Content -->
-<div class="dd-body">
-    <div class="row g-4">
-
-        <!-- Main detail card -->
-        <div class="col-lg-7">
-            <div class="dd-card">
-                <div class="dd-card-hdr">
-                    <h2 class="dd-card-title"><i class="bi bi-calendar-event me-2" style="color:var(--dd-teal);"></i>Appointment Info</h2>
-                    <span class="pill pill-confirmed">Confirmed</span>
-                </div>
-                <dl class="dd-dl row">
-                    <div class="col-sm-6">
-                        <dt>Patient</dt>
-                        <dd>Jane Smith</dd>
-                    </div>
-                    <div class="col-sm-6">
-                        <dt>Reference</dt>
-                        <dd><code>APT-001</code></dd>
-                    </div>
-                    <div class="col-sm-6">
-                        <dt>Date</dt>
-                        <dd>15 May 2026</dd>
-                    </div>
-                    <div class="col-sm-6">
-                        <dt>Time</dt>
-                        <dd>10:00 – 10:30</dd>
-                    </div>
-                    <div class="col-sm-6">
-                        <dt>Clinician</dt>
-                        <dd>Dr. A. Rahman</dd>
-                    </div>
-                    <div class="col-sm-6">
-                        <dt>Appointment Type</dt>
-                        <dd>Follow-up</dd>
-                    </div>
-                    <div class="col-sm-6">
-                        <dt>Location</dt>
-                        <dd>Room 4B, Main Building</dd>
-                    </div>
-                    <div class="col-sm-6">
-                        <dt>Booked On</dt>
-                        <dd>01 May 2026</dd>
-                    </div>
-                    <div class="col-12">
-                        <dt>Notes</dt>
-                        <dd>Patient requested morning slot. Follow-up from surgery in March.</dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-
-        <!-- Side panel -->
-        <div class="col-lg-5 d-flex flex-column gap-3">
-
-            <div class="dd-card">
-                <div class="dd-card-hdr">
-                    <h2 class="dd-card-title"><i class="bi bi-person-circle me-2 text-primary"></i>Patient</h2>
-                </div>
-                <dl class="dd-dl mb-0">
-                    <dt>Name</dt><dd>Jane Smith</dd>
-                    <dt>Date of Birth</dt><dd>14 Jun 1980</dd>
-                    <dt>GP Practice</dt><dd>Elm Street Surgery</dd>
-                </dl>
-            </div>
-
-            <div class="dd-card">
-                <div class="dd-card-hdr">
-                    <h2 class="dd-card-title"><i class="bi bi-bell me-2" style="color:var(--dd-teal);"></i>Reminders</h2>
-                </div>
-                <div class="d-flex flex-column gap-2" style="font-size:.85rem;">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span>SMS — 24h before</span>
-                        <span class="pill pill-confirmed">Sent</span>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span>Email — 48h before</span>
-                        <span class="pill pill-confirmed">Sent</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="mt-3">
-        <a href="/appointments" class="btn-dd-ghost btn btn-sm">
-            <i class="bi bi-arrow-left me-1"></i>Back to appointments
-        </a>
+<div class="dd-card">
+    <div class="dd-card-body">
+        <dl class="dd-dl">
+            <dt>Reference</dt>
+            <dd><code>@ViewBag.AppointmentId</code></dd>
+            <dt>Status</dt>
+            <dd><span class="pill pill-confirmed">Demo</span></dd>
+        </dl>
     </div>
 </div>

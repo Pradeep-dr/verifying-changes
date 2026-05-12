@@ -7,7 +7,13 @@
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "report": "playwright show-report",
-    "auth": "playwright test --project=setup"
+    "auth": "playwright test --project=setup",
+    "test:mars": "playwright test --config playwright.config.ts",
+    "test:mars:ui": "playwright test --config playwright.config.ts --ui",
+    "test:marslite": "playwright test --config playwright.marslite.config.ts",
+    "test:pp": "playwright test --config playwright.patientportal.config.ts",
+    "test:pp:ui": "playwright test --config playwright.patientportal.config.ts --ui",
+    "auth:pp": "playwright test --config playwright.patientportal.config.ts --project=setup"
   },
   "devDependencies": {
     "@playwright/test": "latest",

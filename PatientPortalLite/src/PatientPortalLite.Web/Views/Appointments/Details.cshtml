@@ -1,0 +1,61 @@
+@model PatientPortalLite.Web.Data.Entities.Appointment
+@{
+    ViewData["Title"] = "Appointment details";
+    var apptLabel = Model.ScheduledAt.ToString("ddd d'th' MMM yyyy, h:mmtt").Replace("AM", "am").Replace("PM", "pm");
+}
+
+<div class="pp-banner pp-banner-notice" role="status">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <div><strong>Please review and update your contact details</strong> <i class="bi bi-chevron-right" style="font-size:.85rem;"></i></div>
+</div>
+
+<ul class="pp-tabs">
+    <li><a href="#info" class="active"><i class="bi bi-calendar3"></i> Appointment Info</a></li>
+    <li><a href="#directions"><i class="bi bi-geo-alt"></i> Directions</a></li>
+    <li><a href="#clinic"><i class="bi bi-hospital"></i> Clinic Info</a></li>
+</ul>
+
+<div class="pp-card">
+    <div class="row g-4">
+        <div class="col-md-7">
+            <h2 style="font-size:1.1rem; font-weight:700; margin:0 0 0.5rem;">Your appointment:</h2>
+            <div style="display:flex; align-items:center; gap:0.65rem; margin-bottom:0.5rem;">
+                <span class="pp-appt-detail-list" style="display:inline;">
+                    <span class="icon"><i class="bi bi-clock"></i></span>
+                </span>
+                <strong style="font-size:1.05rem;">@apptLabel</strong>
+            </div>
+            <ul class="pp-appt-detail-list">
+                <li>
+                    <span class="icon"><i class="bi bi-clipboard"></i></span>
+                    <span>@Model.Location</span>
+                </li>
+                <li>
+                    <span class="icon"><i class="bi bi-person"></i></span>
+                    <span>@Model.Specialty Service</span>
+                </li>
+                <li>
+                    <span class="icon"><i class="bi bi-telephone"></i></span>
+                    <span>@Model.Clinician</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-5 d-flex flex-column gap-2">
+            <button class="pp-btn-primary">Request remote appointment</button>
+
+            <div class="pp-banner pp-banner-info mb-0" style="font-size:0.88rem; padding:0.75rem 0.9rem;">
+                <i class="bi bi-info-circle" style="color:var(--pp-primary-dark);"></i>
+                <div>Frequent changes to appointments may delay care or result in you being discharged to your GP.</div>
+            </div>
+
+            <button class="pp-btn-primary">Change appointment</button>
+            <button class="pp-btn-primary">Cancel appointment</button>
+            <button class="pp-btn-secondary">Add to calendar</button>
+
+            <a href="#" class="pp-text-link mt-2" style="text-align:center;">I don't recognise this appointment</a>
+        </div>
+    </div>
+</div>
+
+<a href="/appointments" class="pp-back-link mt-3"><i class="bi bi-chevron-left"></i> Back to appointments</a>

@@ -41,6 +41,11 @@ node_modules/
 # Logs
 *.log
 
+# SQLite databases (regenerated on app startup by DbSeeder)
+*.db
+*.db-shm
+*.db-wal
+
 # Visual Studio user-specific
 *.csproj.user
 

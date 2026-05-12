@@ -1,16 +1,29 @@
-var builder = WebApplication.CreateBuilder(args);
+using System;
+using Microsoft.Owin.Hosting;
 
-builder.Services.AddControllersWithViews();
-builder.Services.Configure<RouteOptions>(o => o.LowercaseUrls = true);
+namespace MarsLite.Web
+{
+    public static class Program
+    {
+        public static void Main(string[] args)
+        {
+            var url = Environment.GetEnvironmentVariable("MARSLITE_URL") ?? "http://localhost:5185";
 
-var app = builder.Build();
+            using (WebApp.Start<Startup>(url))
+            {
+                Console.WriteLine();
+                Console.WriteLine("┌─────────────────────────────────────────────┐");
+                Console.WriteLine("│  MarsLite (Nancy / .NET Framework 4.8)      │");
+                Console.WriteLine("│  Listening on " + url.PadRight(31) + "│");
+                Console.WriteLine("│  Demo: staff@drdoctor.dev / password123     │");
+                Console.WriteLine("│  Press Ctrl+C to stop                        │");
+                Console.WriteLine("└─────────────────────────────────────────────┘");
 
-if (!app.Environment.IsDevelopment())
-    app.UseExceptionHandler("/home/error");
-
-app.UseStaticFiles();
-app.UseRouting();
-
-app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();
+                // Keep the host alive
+                var quit = new System.Threading.ManualResetEvent(false);
+                Console.CancelKeyPress += (s, e) => { e.Cancel = true; quit.Set(); };
+                quit.WaitOne();
+            }
+        }
+    }
+}
