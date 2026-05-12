@@ -1,0 +1,112 @@
+@{
+    ViewData["Title"] = "Waiting Lists — Configuration";
+    var pid = (int)ViewBag.ProviderId;
+}
+
+<!-- Page header -->
+<div class="dd-page-hdr">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/waitinglists/@pid">Waiting Lists</a></li>
+            <li class="breadcrumb-item active">Configuration</li>
+        </ol>
+    </nav>
+    <div class="d-flex align-items-center justify-content-between">
+        <h1 class="page-title">Waiting Lists</h1>
+        <span class="page-meta"><i class="bi bi-building me-1"></i>Provider @pid</span>
+    </div>
+    <ul class="nav dd-tabs">
+        <li class="nav-item"><a class="nav-link" href="/waitinglists/@pid">Overview</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/waitinglists/@pid/config">Configuration</a></li>
+        <li class="nav-item"><a class="nav-link" href="/waitinglists/@pid/entries">Entries</a></li>
+        <li class="nav-item"><a class="nav-link" href="/waitinglists/@pid/patientlists">Patient Lists</a></li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="dd-body">
+    <div class="row g-4">
+
+        <!-- General settings -->
+        <div class="col-lg-7">
+            <div class="dd-card">
+                <div class="dd-card-hdr">
+                    <h2 class="dd-card-title"><i class="bi bi-sliders me-2 text-primary"></i>General Settings</h2>
+                </div>
+                <div class="row g-3">
+                    <div class="col-sm-6 dd-field">
+                        <label>Max Capacity</label>
+                        <input type="number" class="form-control" value="100" />
+                    </div>
+                    <div class="col-sm-6 dd-field">
+                        <label>Default Priority</label>
+                        <select class="form-select">
+                            <option selected>Routine</option>
+                            <option>Urgent</option>
+                            <option>Emergency</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 dd-field">
+                        <label>Target Wait (days)</label>
+                        <input type="number" class="form-control" value="28" />
+                    </div>
+                    <div class="col-sm-6 dd-field">
+                        <label>Auto-assign</label>
+                        <select class="form-select">
+                            <option selected>Enabled</option>
+                            <option>Disabled</option>
+                        </select>
+                    </div>
+                    <div class="col-12 dd-field">
+                        <label>Notes</label>
+                        <textarea class="form-control" rows="2">Routine surgical waiting list for Provider @pid</textarea>
+                    </div>
+                </div>
+                <div class="mt-4 d-flex gap-2">
+                    <button class="btn-dd-primary btn">Save changes</button>
+                    <button class="btn-dd-ghost btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification settings -->
+        <div class="col-lg-5">
+            <div class="dd-card">
+                <div class="dd-card-hdr">
+                    <h2 class="dd-card-title"><i class="bi bi-bell me-2" style="color:var(--dd-teal);"></i>Notifications</h2>
+                </div>
+                <div class="d-flex flex-column gap-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="fw-medium" style="font-size:.875rem;">Email alerts</div>
+                            <div class="text-muted" style="font-size:.78rem;">Send when entry added or removed</div>
+                        </div>
+                        <div class="form-check form-switch mb-0">
+                            <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="fw-medium" style="font-size:.875rem;">Capacity warning</div>
+                            <div class="text-muted" style="font-size:.78rem;">Alert at 80% capacity</div>
+                        </div>
+                        <div class="form-check form-switch mb-0">
+                            <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="fw-medium" style="font-size:.875rem;">Overdue reminders</div>
+                            <div class="text-muted" style="font-size:.78rem;">Weekly digest of overdue entries</div>
+                        </div>
+                        <div class="form-check form-switch mb-0">
+                            <input class="form-check-input" type="checkbox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
