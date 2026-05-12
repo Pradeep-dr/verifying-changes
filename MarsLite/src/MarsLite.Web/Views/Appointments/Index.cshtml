@@ -1,0 +1,25 @@
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+@{
+    ViewBag.Title = "Appointments";
+}
+
+<div class="dd-page-hdr">
+    <div class="dd-page-crumb">
+        <a href="/">Dashboard</a>
+        <span class="sep">/</span>
+        <span class="active">Appointments</span>
+    </div>
+    <h1 class="dd-page-title">Appointments</h1>
+</div>
+
+<div class="dd-card">
+    <div class="dd-card-body">
+        <div class="dd-empty">
+            <div class="dd-empty-icon"><i class="bi bi-calendar-x"></i></div>
+            <p>No appointments yet. This page is a routing stub to demonstrate Nancy's GUID route constraint.</p>
+            <a href="/appointments/00000000-0000-0000-0000-000000000001" class="dd-btn-ghost dd-btn-sm mt-2">
+                View sample appointment
+            </a>
+        </div>
+    </div>
+</div>

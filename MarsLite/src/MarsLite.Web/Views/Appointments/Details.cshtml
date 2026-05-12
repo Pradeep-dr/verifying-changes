@@ -1,0 +1,26 @@
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+@{
+    ViewBag.Title = "Appointment details";
+}
+
+<div class="dd-page-hdr">
+    <div class="dd-page-crumb">
+        <a href="/">Dashboard</a>
+        <span class="sep">/</span>
+        <a href="/appointments">Appointments</a>
+        <span class="sep">/</span>
+        <span class="active">Detail</span>
+    </div>
+    <h1 class="dd-page-title">Appointment details</h1>
+</div>
+
+<div class="dd-card">
+    <div class="dd-card-body">
+        <dl class="dd-dl">
+            <dt>Reference</dt>
+            <dd><code>@ViewBag.AppointmentId</code></dd>
+            <dt>Status</dt>
+            <dd><span class="pill pill-confirmed">Demo</span></dd>
+        </dl>
+    </div>
+</div>

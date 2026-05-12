@@ -1,0 +1,62 @@
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<MarsLite.Web.Modules.WaitingListsShellVm>
+@{
+    ViewBag.Title = "Waiting Lists";
+}
+
+@*
+    AngularJS HTML5 mode requires a <base href="..."> in <head>. Without it, the app
+    throws [$location:nobase] at bootstrap. The base path is the same one Nancy uses
+    to mount the AngularJS app (e.g. "/waitinglists/1/"). All relative URLs in the
+    AngularJS partials resolve from here.
+*@
+@section Head {
+    <base href="@Model.AngularBase" />
+}
+
+<div class="dd-page-hdr">
+    <div class="dd-page-crumb">
+        <a href="/">Dashboard</a>
+        <span class="sep">/</span>
+        <span class="active">Waiting Lists</span>
+    </div>
+    <h1 class="dd-page-title">Waiting Lists</h1>
+</div>
+
+<ul class="dd-tabs">
+    <li><a href="@(Model.AngularBase)" data-route="/">Overview</a></li>
+    <li><a href="@(Model.AngularBase)config" data-route="/config">Configuration</a></li>
+    <li><a href="@(Model.AngularBase)entries" data-route="/entries">Entries</a></li>
+    <li><a href="@(Model.AngularBase)patientlists" data-route="/patientlists">Patient Lists</a></li>
+</ul>
+
+<div ng-app="WaitingListsApp">
+    <div ng-controller="WaitingListsController"
+         ng-init="init(@Model.ProviderId, '@Model.AngularBase')">
+        <div data-record="true" ng-view>
+            We're currently loading this page, please hold on...
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- AngularJS 1.8 — matches real Mars's AngularJS stack -->
+    <script src="https://cdn.jsdelivr.net/npm/angular@1.8.3/angular.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/angular-route@1.8.3/angular-route.min.js"></script>
+    <script src="/Scripts/app/waitingLists/waitingLists.app.js"></script>
+    <script src="/Scripts/app/waitingLists/waitingListsController.js"></script>
+    <script>
+        angular.module('WaitingListsApp').constant('wlBootstrap', {
+            providerId:  @Model.ProviderId,
+            angularBase: '@Model.AngularBase'
+        });
+
+        // Mark the active tab based on the current path (AngularJS HTML5 mode)
+        (function () {
+            var base = '@Model.AngularBase';
+            var path = window.location.pathname.replace(base.replace(/\/$/, ''), '') || '/';
+            document.querySelectorAll('.dd-tabs a').forEach(function (a) {
+                if (a.getAttribute('data-route') === path) a.classList.add('active');
+            });
+        })();
+    </script>
+}

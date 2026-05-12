@@ -1,0 +1,94 @@
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+@{
+    string currentPath = Context.Request.Path ?? "/";
+    Func<string, string> isActive = (prefix) =>
+        currentPath.StartsWith(prefix, System.StringComparison.OrdinalIgnoreCase) ? "active" : "";
+    Func<string, string> isExact = (path) =>
+        string.Equals(currentPath, path, System.StringComparison.OrdinalIgnoreCase) ? "active" : "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(ViewBag.Title ?? "MarsLite") — DrDoctor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="/Content/css/site.css" />
+    @RenderSection("Head", required: false)
+</head>
+<body>
+
+<div class="dd-shell">
+
+    <aside class="dd-sidebar">
+        <div class="dd-sidebar-hdr">
+            <a href="/" class="dd-logo">DrDoctor</a>
+        </div>
+
+        <nav class="dd-side-nav">
+
+            <a class="dd-side-link @isExact("/")" href="/">
+                <i class="bi bi-chat-left-text"></i>Messages
+                <i class="bi bi-chevron-down ms-auto" style="font-size:.75rem; color:var(--dd-muted);"></i>
+            </a>
+
+            <button type="button" class="dd-side-section" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.style.display = this.classList.contains('collapsed') ? 'none' : 'block';">
+                <i class="bi bi-gear"></i>Setup
+                <i class="bi bi-chevron-up chev"></i>
+            </button>
+            <div class="dd-side-sub">
+                <a class="dd-side-sublink @isActive("/waitinglists")" href="/waitinglists/1">Waiting lists</a>
+                <a class="dd-side-sublink @isActive("/appointments")" href="/appointments">Appointments</a>
+            </div>
+
+            <a class="dd-side-link" href="#" onclick="return false;">
+                <i class="bi bi-bar-chart"></i>Insight Hub
+            </a>
+
+            <button type="button" class="dd-side-section collapsed" onclick="this.classList.toggle('collapsed'); this.nextElementSibling.style.display = this.classList.contains('collapsed') ? 'none' : 'block';">
+                <i class="bi bi-sliders"></i>System
+                <i class="bi bi-chevron-up chev"></i>
+            </button>
+            <div class="dd-side-sub" style="display:none;">
+                <a class="dd-side-sublink" href="#" onclick="return false;">Users</a>
+            </div>
+
+        </nav>
+
+        <div class="dd-sidebar-ftr">
+            <div class="dd-provider-picker" role="button" tabindex="0">
+                <span class="name">St Mary's Hospital (Demo)</span>
+                <i class="bi bi-chevron-down" style="font-size:.85rem; color:var(--dd-muted);"></i>
+            </div>
+        </div>
+    </aside>
+
+    <div class="dd-main">
+
+        <header class="dd-topbar">
+            @if (Context.CurrentUser != null)
+            {
+                var user = Context.CurrentUser as MarsLite.Web.Auth.UserIdentity;
+                <button type="button" class="dd-btn-ghost">
+                    <i class="bi bi-question-circle"></i>Help
+                </button>
+                <form method="post" action="/auth/logout" class="m-0">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="dd-btn-ghost">
+                        <i class="bi bi-box-arrow-right"></i>Logout
+                    </button>
+                </form>
+            }
+        </header>
+
+        <main class="dd-page">
+            @RenderBody()
+        </main>
+
+    </div>
+</div>
+
+@RenderSection("Scripts", required: false)
+</body>
+</html>

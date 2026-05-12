@@ -1,0 +1,64 @@
+<div ng-if="vm.loading" class="dd-empty">
+    <div class="spinner-border" role="status" style="color:var(--dd-primary);">
+        <span class="visually-hidden">Loading…</span>
+    </div>
+</div>
+
+<div ng-if="!vm.loading">
+
+    <div class="dd-stat-bar mb-4">
+        <div class="dd-stat">
+            <div class="dd-stat-val primary">{{ vm.active }}</div>
+            <div class="dd-stat-lbl">Active Lists</div>
+        </div>
+        <div class="dd-stat">
+            <div class="dd-stat-val warning">{{ vm.total }}</div>
+            <div class="dd-stat-lbl">Total Entries</div>
+        </div>
+        <div class="dd-stat">
+            <div class="dd-stat-val success">{{ (vm.total / 3) | number:0 }}</div>
+            <div class="dd-stat-lbl">Assigned Today</div>
+        </div>
+        <div class="dd-stat">
+            <div class="dd-stat-val danger">2</div>
+            <div class="dd-stat-lbl">Overdue</div>
+        </div>
+    </div>
+
+    <div class="dd-toolbar">
+        <div class="dd-search">
+            <i class="bi bi-search"></i>
+            <input type="search" placeholder="Search waiting lists" aria-label="Search waiting lists" />
+        </div>
+        <button class="dd-btn-primary">
+            <i class="bi bi-plus-lg"></i>New List
+        </button>
+    </div>
+
+    <div class="dd-table-card">
+        <table class="dd-table">
+            <thead>
+                <tr>
+                    <th>List Name</th>
+                    <th>Specialty</th>
+                    <th>Entries</th>
+                    <th>Status</th>
+                    <th><span class="visually-hidden">Actions</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="list in vm.lists">
+                    <td class="fw-medium">{{ list.name }}</td>
+                    <td>{{ list.specialty }}</td>
+                    <td>{{ list.entryCount }}</td>
+                    <td>
+                        <span ng-if="list.status === 'Active'"   class="pill pill-confirmed">Active</span>
+                        <span ng-if="list.status !== 'Active'"   class="pill pill-waiting">{{ list.status }}</span>
+                    </td>
+                    <td><a href="entries" class="dd-btn-ghost dd-btn-sm">View entries</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

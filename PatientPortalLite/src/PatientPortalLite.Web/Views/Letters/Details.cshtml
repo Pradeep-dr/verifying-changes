@@ -1,0 +1,19 @@
+@model PatientPortalLite.Web.Data.Entities.Letter
+@{
+    ViewData["Title"] = Model.Subject;
+}
+
+<a href="/letters" class="pp-back-link"><i class="bi bi-chevron-left"></i> Back to letters</a>
+
+<div class="pp-page-hdr">
+    <h1 class="pp-page-title">@Model.Subject</h1>
+    <p class="pp-page-sub">From @Model.Sender · sent @Model.SentOn.ToString("dd MMM yyyy")</p>
+</div>
+
+<article class="pp-card">
+    <div class="pp-letter-content">@Model.Body</div>
+    <div class="d-flex gap-2 mt-4">
+        <a href="/letters" class="pp-btn-secondary" style="width:auto;"><i class="bi bi-arrow-left"></i> Back</a>
+        <button class="pp-btn-primary" style="width:auto;"><i class="bi bi-download"></i> Download PDF</button>
+    </div>
+</article>

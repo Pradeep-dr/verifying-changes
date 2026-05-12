@@ -1,0 +1,33 @@
+@model IReadOnlyList<PatientPortalLite.Web.Data.Entities.Letter>
+@{
+    ViewData["Title"] = "Letters";
+}
+
+<div class="pp-page-hdr">
+    <h1 class="pp-page-title">Your letters</h1>
+    <p class="pp-page-sub">@Model.Count letter(s) — @Model.Count(l => !l.IsRead) unread.</p>
+</div>
+
+<div class="pp-card p-0">
+    <ul class="pp-letter-list">
+        @foreach (var letter in Model)
+        {
+            <li class="@(letter.IsRead ? "" : "unread")">
+                <div class="pp-letter-icon">
+                    <i class="bi @(letter.IsRead ? "bi-envelope-open" : "bi-envelope-paper-fill")"></i>
+                </div>
+                <div class="pp-letter-body">
+                    <a href="/letters/@letter.Id" class="pp-letter-title">@letter.Subject</a>
+                    <div class="pp-letter-meta">
+                        <span>@letter.Sender</span>
+                        <span>@letter.SentOn.ToString("dd MMM yyyy")</span>
+                    </div>
+                </div>
+                @if (!letter.IsRead)
+                {
+                    <span class="pp-pill pp-pill-amber">New</span>
+                }
+            </li>
+        }
+    </ul>
+</div>

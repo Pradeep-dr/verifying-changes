@@ -1,0 +1,696 @@
+/* ════════════════════════════════════════════════════════════════════════
+   DrDoctor MarsLite theme — mirrors the real Mars / DrDoctor staff portal:
+   left sidebar nav, DrDoctor green accent, white surface, light grey page bg.
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --dd-primary: #1b5e20; /* DrDoctor green — primary brand */
+  --dd-primary-dark: #0f3a12;
+  --dd-primary-darker: #082309;
+  --dd-primary-50: #f1f8f2; /* hover background */
+  --dd-primary-100: #e8f5e9; /* active sidebar item bg */
+  --dd-accent: #2e7d32;
+  --dd-bg: #f6f7f8; /* main content area bg */
+  --dd-surface: #ffffff;
+  --dd-sidebar-bg: #ffffff;
+  --dd-border: #e5e7eb;
+  --dd-border-strong: #d1d5db;
+  --dd-text: #111827;
+  --dd-muted: #6b7280;
+  --dd-muted-strong: #4b5563;
+  --dd-success: #16a34a;
+  --dd-warning: #d97706;
+  --dd-danger: #dc2626;
+  --dd-sidebar-w: 260px;
+}
+
+html,
+body {
+  background: var(--dd-bg);
+  color: var(--dd-text);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  font-size: 14px;
+  margin: 0;
+  height: 100%;
+}
+a {
+  color: var(--dd-primary);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--dd-primary-dark);
+}
+* {
+  box-sizing: border-box;
+}
+
+/* ── Shell ──────────────────────────────────────────────────────────── */
+.dd-shell {
+  display: flex;
+  min-height: 100vh;
+}
+.dd-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Sidebar ────────────────────────────────────────────────────────── */
+.dd-sidebar {
+  width: var(--dd-sidebar-w);
+  background: var(--dd-sidebar-bg);
+  border-right: 1px solid var(--dd-border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.dd-sidebar-hdr {
+  padding: 1.25rem 1.25rem 0.75rem;
+}
+.dd-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dd-primary);
+  letter-spacing: -0.5px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+.dd-logo .dot {
+  color: var(--dd-accent);
+}
+
+.dd-side-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem 0.5rem;
+}
+.dd-side-link,
+.dd-side-section {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 7px;
+  color: var(--dd-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  margin-bottom: 0.15rem;
+}
+.dd-side-link i,
+.dd-side-section i {
+  color: var(--dd-muted);
+  font-size: 1rem;
+}
+.dd-side-link:hover,
+.dd-side-section:hover {
+  background: var(--dd-primary-50);
+  color: var(--dd-primary-dark);
+}
+.dd-side-link.active {
+  background: var(--dd-primary-100);
+  color: var(--dd-primary-dark);
+  font-weight: 600;
+}
+.dd-side-link.active i {
+  color: var(--dd-primary);
+}
+
+.dd-side-section {
+  font-weight: 600;
+}
+.dd-side-section .chev {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: var(--dd-muted);
+  transition: transform 0.15s;
+}
+.dd-side-section.collapsed .chev {
+  transform: rotate(-90deg);
+}
+
+.dd-side-sub {
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.dd-side-sublink {
+  display: block;
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  color: var(--dd-muted-strong);
+  font-size: 0.85rem;
+  margin-bottom: 0.1rem;
+}
+.dd-side-sublink:hover {
+  background: var(--dd-primary-50);
+  color: var(--dd-primary-dark);
+}
+.dd-side-sublink.active {
+  background: var(--dd-primary-100);
+  color: var(--dd-primary-dark);
+  font-weight: 600;
+}
+
+.dd-sidebar-ftr {
+  border-top: 1px solid var(--dd-border);
+  padding: 0.85rem;
+}
+.dd-provider-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-border);
+  border-radius: 7px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--dd-text);
+  cursor: pointer;
+}
+.dd-provider-picker .name {
+  flex: 1;
+}
+.dd-provider-picker:hover {
+  border-color: var(--dd-primary);
+}
+
+/* ── Topbar ─────────────────────────────────────────────────────────── */
+.dd-topbar {
+  background: transparent;
+  padding: 0.85rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  min-height: 56px;
+}
+
+/* ── Page header (inside content area) ─────────────────────────────── */
+.dd-page {
+  padding: 0 1.75rem 1.75rem;
+}
+.dd-page-hdr {
+  margin-bottom: 1rem;
+}
+.dd-page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+  color: var(--dd-text);
+}
+.dd-page-crumb {
+  font-size: 0.85rem;
+  color: var(--dd-muted);
+  margin-bottom: 0.5rem;
+}
+.dd-page-crumb a {
+  color: var(--dd-muted);
+}
+.dd-page-crumb .sep {
+  margin: 0 0.4rem;
+  color: var(--dd-border-strong);
+}
+.dd-page-crumb .active {
+  color: var(--dd-text);
+}
+
+/* ── Tabs (sub-page nav within a section) ──────────────────────────── */
+.dd-tabs {
+  display: flex;
+  gap: 0.1rem;
+  border-bottom: 1px solid var(--dd-border);
+  margin: 1rem 0 1.25rem;
+  list-style: none;
+  padding: 0;
+}
+.dd-tabs li {
+  list-style: none;
+}
+.dd-tabs a {
+  color: var(--dd-muted);
+  font-size: 0.875rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.dd-tabs a:hover {
+  color: var(--dd-text);
+}
+.dd-tabs a.active {
+  color: var(--dd-primary);
+  border-bottom-color: var(--dd-primary);
+  font-weight: 500;
+}
+
+/* ── Cards ──────────────────────────────────────────────────────────── */
+.dd-card {
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-border);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+}
+.dd-card-body {
+  padding: 1.25rem 1.5rem;
+}
+.dd-card-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--dd-border);
+}
+.dd-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--dd-text);
+}
+
+/* ── Toolbar (search + actions row above tables) ──────────────────── */
+.dd-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-border);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.dd-search {
+  flex: 1;
+  position: relative;
+}
+.dd-search input {
+  width: 100%;
+  padding: 0.5rem 0.85rem 0.5rem 2.25rem;
+  border: 1px solid var(--dd-border);
+  border-radius: 7px;
+  font-size: 0.875rem;
+}
+.dd-search input:focus {
+  outline: none;
+  border-color: var(--dd-primary);
+  box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.1);
+}
+.dd-search i {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--dd-muted);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────── */
+.dd-btn-primary {
+  background: var(--dd-primary);
+  color: #fff;
+  border: 1px solid var(--dd-primary);
+  border-radius: 7px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.45rem 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+.dd-btn-primary:hover {
+  background: var(--dd-primary-dark);
+  color: #fff;
+}
+
+.dd-btn-ghost {
+  background: var(--dd-surface);
+  color: var(--dd-text);
+  border: 1px solid var(--dd-border);
+  border-radius: 7px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.45rem 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+.dd-btn-ghost:hover {
+  background: var(--dd-primary-50);
+  color: var(--dd-primary-dark);
+  border-color: var(--dd-primary-100);
+}
+
+.dd-btn-sm {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+}
+
+/* ── Table ──────────────────────────────────────────────────────────── */
+.dd-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--dd-surface);
+  font-size: 0.875rem;
+}
+.dd-table thead th {
+  background: var(--dd-surface);
+  color: var(--dd-muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--dd-border);
+  text-align: left;
+  white-space: nowrap;
+}
+.dd-table thead th .sort {
+  margin-left: 0.25rem;
+  color: var(--dd-text);
+  font-size: 0.75rem;
+}
+.dd-table tbody td {
+  padding: 0.95rem 1.25rem;
+  border-bottom: 1px solid var(--dd-border);
+  vertical-align: middle;
+  color: var(--dd-text);
+}
+.dd-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.dd-table tbody tr:hover {
+  background: var(--dd-primary-50);
+}
+
+.dd-table-card {
+  border: 1px solid var(--dd-border);
+  border-radius: 8px;
+  background: var(--dd-surface);
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+}
+
+/* ── Pagination ─────────────────────────────────────────────────────── */
+.dd-paging {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.85rem;
+  color: var(--dd-muted);
+  border-top: 1px solid var(--dd-border);
+}
+.dd-paging .arrow {
+  background: transparent;
+  border: 1px solid var(--dd-border);
+  border-radius: 5px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dd-muted);
+}
+.dd-paging .arrow:hover {
+  color: var(--dd-primary);
+  border-color: var(--dd-primary);
+}
+.dd-paging input,
+.dd-paging select {
+  border: 1px solid var(--dd-border);
+  border-radius: 5px;
+  padding: 0.25rem 0.45rem;
+  font-size: 0.85rem;
+  width: 48px;
+}
+.dd-paging .right {
+  margin-left: auto;
+}
+
+/* ── Pills / badges ─────────────────────────────────────────────────── */
+.pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 20px;
+  padding: 0.2rem 0.7rem;
+  white-space: nowrap;
+}
+.pill-waiting {
+  background: #fef3c7;
+  color: #92400e;
+}
+.pill-confirmed {
+  background: var(--dd-primary-100);
+  color: var(--dd-primary-dark);
+}
+.pill-new {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.pill-cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
+.pill-grey {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+/* ── Stat bar (dashboard) ───────────────────────────────────────────── */
+.dd-stat-bar {
+  display: flex;
+  gap: 0;
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.dd-stat {
+  flex: 1;
+  padding: 1.1rem 1.5rem;
+  border-right: 1px solid var(--dd-border);
+}
+.dd-stat:last-child {
+  border-right: none;
+}
+.dd-stat-val {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--dd-text);
+}
+.dd-stat-lbl {
+  font-size: 0.75rem;
+  color: var(--dd-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.2rem;
+}
+.dd-stat-val.primary {
+  color: var(--dd-primary);
+}
+.dd-stat-val.danger {
+  color: var(--dd-danger);
+}
+.dd-stat-val.warning {
+  color: var(--dd-warning);
+}
+.dd-stat-val.success {
+  color: var(--dd-success);
+}
+
+/* ── Module cards (dashboard tiles) ────────────────────────────────── */
+.dd-module-card {
+  display: block;
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    box-shadow 0.15s,
+    border-color 0.15s,
+    transform 0.15s;
+}
+.dd-module-card:hover {
+  border-color: var(--dd-primary);
+  box-shadow: 0 6px 18px rgba(27, 94, 32, 0.08);
+  transform: translateY(-1px);
+}
+.dd-module-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: var(--dd-primary-100);
+  color: var(--dd-primary-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+.dd-module-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.dd-module-desc {
+  font-size: 0.8rem;
+  color: var(--dd-muted);
+  margin-bottom: 0.75rem;
+}
+
+.dd-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  background: var(--dd-primary-100);
+  color: var(--dd-primary-dark);
+}
+
+/* ── Field group (forms) ───────────────────────────────────────────── */
+.dd-field {
+  display: block;
+}
+.dd-field label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--dd-muted-strong);
+  margin-bottom: 0.3rem;
+}
+.dd-field .form-control,
+.dd-field .form-select,
+.dd-field input[type="text"],
+.dd-field input[type="email"],
+.dd-field input[type="password"],
+.dd-field input[type="number"],
+.dd-field textarea,
+.dd-field select {
+  font-size: 0.875rem;
+  border-color: var(--dd-border);
+  border-radius: 7px;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  border: 1px solid var(--dd-border);
+}
+.dd-field .form-control:focus,
+.dd-field .form-select:focus,
+.dd-field input:focus,
+.dd-field textarea:focus,
+.dd-field select:focus {
+  outline: none;
+  border-color: var(--dd-primary);
+  box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.1);
+}
+
+/* ── Definition list ──────────────────────────────────────────────── */
+.dd-dl dt {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--dd-muted);
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+.dd-dl dd {
+  font-size: 0.9rem;
+  color: var(--dd-text);
+  margin-bottom: 1rem;
+}
+
+/* ── Empty state ──────────────────────────────────────────────────── */
+.dd-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--dd-muted);
+}
+.dd-empty .dd-empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  opacity: 0.4;
+}
+
+/* ── Auth (login) page ─────────────────────────────────────────────── */
+.auth-body {
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(
+    135deg,
+    var(--dd-bg) 0%,
+    var(--dd-primary-50) 100%
+  );
+}
+.auth-card-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+.auth-card {
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-border);
+  border-radius: 14px;
+  box-shadow: 0 12px 36px rgba(15, 58, 18, 0.1);
+  padding: 2.25rem 2rem;
+  width: 100%;
+  max-width: 400px;
+}
+.auth-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dd-primary);
+  letter-spacing: -0.5px;
+  margin-bottom: 1.5rem;
+}
+.auth-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+}
+.auth-sub {
+  color: var(--dd-muted);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+.auth-hint {
+  background: var(--dd-primary-50);
+  border: 1px solid var(--dd-primary-100);
+  border-radius: 7px;
+  padding: 0.7rem 0.85rem;
+  font-size: 0.78rem;
+  color: var(--dd-muted-strong);
+}
+.auth-hint code {
+  color: var(--dd-primary-dark);
+  background: transparent;
+  padding: 0;
+  font-weight: 600;
+}
+
+/* Misc bootstrap-ish helpers used in views */
+.text-muted {
+  color: var(--dd-muted) !important;
+}
+.fw-medium {
+  font-weight: 500;
+}
+.fw-semibold {
+  font-weight: 600;
+}

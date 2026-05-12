@@ -1,0 +1,80 @@
+<div ng-if="vm.loading" class="dd-empty">
+    <div class="spinner-border" role="status" style="color:var(--dd-primary);">
+        <span class="visually-hidden">Loading…</span>
+    </div>
+</div>
+
+<div ng-if="!vm.loading">
+
+    <div class="dd-toolbar">
+        <div class="dd-search">
+            <i class="bi bi-search"></i>
+            <input type="search" placeholder="Search waiting list entries" aria-label="Search waiting list entries" />
+        </div>
+        <button class="dd-btn-ghost">
+            <i class="bi bi-file-earmark-spreadsheet" style="color:var(--dd-success);"></i>
+            Export to Excel
+        </button>
+        <button class="dd-btn-ghost">
+            <i class="bi bi-gear"></i>
+            Settings
+        </button>
+    </div>
+
+    <div class="dd-table-card">
+        <table class="dd-table">
+            <thead>
+                <tr>
+                    <th>Ref <span class="sort">▲</span></th>
+                    <th>Patient</th>
+                    <th>Added</th>
+                    <th>Days on List</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th><span class="visually-hidden">Actions</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="e in vm.entries">
+                    <td><code>{{ e.ref }}</code></td>
+                    <td>
+                        <div class="fw-medium">{{ e.patientName }}</div>
+                        <div class="text-muted" style="font-size:.78rem;">DOB: {{ e.dobLabel }}</div>
+                    </td>
+                    <td>{{ e.addedLabel }}</td>
+                    <td>
+                        <span ng-if="e.overdue"  style="color:var(--dd-danger);" class="fw-medium">{{ e.days }}</span>
+                        <span ng-if="!e.overdue">{{ e.days }}</span>
+                    </td>
+                    <td>
+                        <span ng-if="e.priority === 'Urgent'"  class="pill pill-cancelled">Urgent</span>
+                        <span ng-if="e.priority !== 'Urgent'"  class="pill pill-grey">{{ e.priority }}</span>
+                    </td>
+                    <td>
+                        <span ng-if="e.status === 'Waiting'"   class="pill pill-waiting">Waiting</span>
+                        <span ng-if="e.status !== 'Waiting'"   class="pill pill-confirmed">{{ e.status }}</span>
+                    </td>
+                    <td>
+                        <button ng-if="e.status === 'Waiting'" class="dd-btn-ghost dd-btn-sm">Invite to book</button>
+                        <button ng-if="e.status !== 'Waiting'" class="dd-btn-ghost dd-btn-sm">View</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="dd-paging">
+            <button class="arrow" aria-label="First page"><i class="bi bi-chevron-bar-left"></i></button>
+            <button class="arrow" aria-label="Previous page"><i class="bi bi-chevron-left"></i></button>
+            <span>Showing page</span>
+            <input type="number" value="1" min="1" aria-label="Page number" />
+            <span>of 1</span>
+            <button class="arrow" aria-label="Next page"><i class="bi bi-chevron-right"></i></button>
+            <button class="arrow" aria-label="Last page"><i class="bi bi-chevron-bar-right"></i></button>
+            <span class="ms-3">Page size:</span>
+            <select aria-label="Page size"><option>20</option><option>50</option><option>100</option></select>
+            <button class="dd-btn-ghost dd-btn-sm">Change</button>
+            <span class="right">Displaying 1 to {{ vm.entries.length }} of {{ vm.entries.length }} records</span>
+        </div>
+    </div>
+
+</div>

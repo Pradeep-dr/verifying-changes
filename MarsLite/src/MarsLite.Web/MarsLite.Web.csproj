@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>MarsLite.Web</RootNamespace>
+    <AssemblyName>MarsLite.Web</AssemblyName>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Framework refs required by Nancy's use of `dynamic` types (route params, ViewBag, etc.) -->
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Nancy 1.4 (same major version family as real Mars — uses the `Get["/path"]` indexer syntax) -->
+    <PackageReference Include="Nancy" Version="1.4.5" />
+    <PackageReference Include="Nancy.Owin" Version="1.4.1" />
+    <PackageReference Include="Nancy.Viewengines.Razor" Version="1.4.3" />
+    <PackageReference Include="Microsoft.Owin.SelfHost" Version="4.2.2" />
+    <PackageReference Include="Microsoft.Owin.StaticFiles" Version="4.2.2" />
+
+    <!-- Data -->
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
+
+    <!-- Razor 3.2 — required by Nancy.Viewengines.Razor 1.4 -->
+    <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Views\**\*.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

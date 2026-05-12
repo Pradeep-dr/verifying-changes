@@ -1,0 +1,57 @@
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="dd-page-hdr">
+    <div class="dd-page-crumb">
+        <span class="active">Dashboard</span>
+    </div>
+    <h1 class="dd-page-title">Dashboard</h1>
+</div>
+
+<div class="dd-stat-bar mb-4">
+    <div class="dd-stat">
+        <div class="dd-stat-val primary">4</div>
+        <div class="dd-stat-lbl">Nancy Modules</div>
+    </div>
+    <div class="dd-stat">
+        <div class="dd-stat-val">7</div>
+        <div class="dd-stat-lbl">Routes</div>
+    </div>
+    <div class="dd-stat">
+        <div class="dd-stat-val success">SQLite</div>
+        <div class="dd-stat-lbl">Database</div>
+    </div>
+    <div class="dd-stat">
+        <div class="dd-stat-val warning">3</div>
+        <div class="dd-stat-lbl">Providers</div>
+    </div>
+</div>
+
+<h2 class="h6 text-muted fw-semibold mb-3" style="text-transform:uppercase; letter-spacing:.5px; font-size:.75rem;">
+    Modules
+</h2>
+<div class="row g-3">
+
+    <div class="col-md-6 col-lg-4">
+        <a href="/waitinglists/1" class="dd-module-card">
+            <div class="dd-module-icon"><i class="bi bi-list-ul"></i></div>
+            <div class="dd-module-name">Waiting Lists</div>
+            <div class="dd-module-desc">Server-rendered Razor shell + AngularJS sub-routes (overview, config, entries, patient lists).</div>
+            <span class="dd-tag">Nancy module</span>
+            <span class="dd-tag">AngularJS</span>
+        </a>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+        <a href="/appointments" class="dd-module-card">
+            <div class="dd-module-icon"><i class="bi bi-calendar-check"></i></div>
+            <div class="dd-module-name">Appointments</div>
+            <div class="dd-module-desc">List and detail routes &mdash; GUID-based routing via Nancy's constraints.</div>
+            <span class="dd-tag">2 routes</span>
+            <span class="dd-tag">GUID routing</span>
+        </a>
+    </div>
+
+</div>

@@ -1,0 +1,18 @@
+<div class="dd-table-card">
+  <table class="dd-table">
+    <thead>
+      <tr>
+        <th>Group</th>
+        <th>Patients</th>
+        <th><span class="visually-hidden">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="g in vm.groups">
+        <td class="fw-medium">{{ g.name }}</td>
+        <td>{{ g.count }}</td>
+        <td><button class="dd-btn-ghost dd-btn-sm">View</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

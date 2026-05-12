@@ -1,0 +1,42 @@
+@model IReadOnlyList<PatientPortalLite.Web.Data.Entities.Appointment>
+@{
+    ViewData["Title"] = "Appointments";
+}
+
+<div class="pp-banner pp-banner-notice" role="status">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <div><strong>Please review and update your contact details</strong> <i class="bi bi-chevron-right" style="font-size:.85rem;"></i></div>
+</div>
+
+<div class="pp-page-hdr">
+    <h1 class="pp-page-title">Your appointments</h1>
+    <p class="pp-page-sub">@Model.Count appointment(s) — past, upcoming, and pending.</p>
+</div>
+
+@foreach (var appt in Model)
+{
+    var apptLabel = appt.ScheduledAt.ToString("ddd dd MMM yyyy - h:mmtt").Replace("AM", "am").Replace("PM", "pm");
+    <a class="pp-appt-card" href="/appointments/@appt.Id">
+        <div class="pp-appt-date">@apptLabel</div>
+        <div class="pp-appt-service">@appt.Specialty Service</div>
+        <div class="pp-appt-location">@appt.Location</div>
+        <div class="mt-2">
+            @{
+                var pillClass = appt.Status switch
+                {
+                    "Confirmed" => "pp-pill pp-pill-info",
+                    "Pending"   => "pp-pill pp-pill-amber",
+                    _           => "pp-pill",
+                };
+            }
+            @if (appt.Status == "Completed")
+            {
+                <span class="text-muted" style="font-size:.85rem;">Completed</span>
+            }
+            else
+            {
+                <span class="@pillClass">@appt.Status</span>
+            }
+        </div>
+    </a>
+}
