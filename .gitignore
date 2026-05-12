@@ -49,9 +49,6 @@ node_modules/
 # Visual Studio user-specific
 *.csproj.user
 
-# AI and other tool specific
-.claude/
-
 # Documents generated from other formats (MD conversions kept instead)
 *.pdf
 

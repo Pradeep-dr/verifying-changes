@@ -1,14 +1,13 @@
 #!/bin/bash
-# DrDoctor pre-commit hook
+# Pre-commit hook — runs Playwright specs for staged UI files before commit.
 #
-# Runs Playwright tests for any staged UI files before allowing a commit.
-#
-# - Tests pass  → commit proceeds
-# - Tests fail  → commit blocked. Run: cd DrDoctor.Playwright && npx playwright show-report
-# - No test yet → you are told to write one with Claude Code
+# - Tests pass  → commit proceeds.
+# - Tests fail  → commit blocked. View report:
+#                   cd DrDoctor.Playwright && npx playwright show-report
+# - No mapping  → developer is told to author one via Claude Code.
 #
 # Activate once after clone:
-#   git config core.hooksPath .githooks
+#   git config core.hooksPath githooks/.githooks
 
 set -e
 
@@ -19,9 +18,9 @@ echo "[pre-commit] -----------------------------------------------------------"
 echo "[pre-commit] DrDoctor automated UI verification"
 echo "[pre-commit] -----------------------------------------------------------"
 
-# 1. Find staged UI files
+# 1. Find staged UI files in any app — pattern is <App>/src/<App>.Web/...
 STAGED_UI=$(git diff --cached --name-only --diff-filter=ACMR \
-    | grep -E "^src/(Mars|MyDrDoctor)/.*\.(cs|cshtml|html|js|ts|css|scss)$" \
+    | grep -E "^[^/]+/src/[^/]+\.Web/.*\.(cs|cshtml|html|js|ts|css|scss)$" \
     || true)
 
 if [ -z "$STAGED_UI" ]; then
@@ -33,42 +32,50 @@ echo "[pre-commit] Detected staged UI files:"
 echo "$STAGED_UI" | sed 's/^/             /'
 echo ""
 
-# 2. Map source files to Playwright specs.
+# 2. Map source files to Playwright specs and their matching config.
 #
 #    HOW TO ADD A NEW PAGE:
-#    Step 1 — Write the spec using Claude Code:
-#               /project:new-playwright-test /your-page-url/
-#    Step 2 — Add an entry below following this pattern:
-#
-#               src/Mars/Mars/Modules/YourModule.cs|src/Mars/Mars/Views/YourPage/*)
-#                   SPECS_TO_RUN="$SPECS_TO_RUN tests/your-page.spec.ts"
-#                   ;;
-#
+#    Step 1 — Generate the spec via Claude Code:
+#               /new-playwright-test /your-page-url/
+#    Step 2 — Add an entry below following the pattern of existing entries.
+#             Set both SPECS_TO_RUN (the spec file) and CONFIG (the matching
+#             playwright.<app>.config.ts) so the right auth setup runs.
+
 SPECS_TO_RUN=""
+CONFIG=""
 UNMAPPED=""
 
 while IFS= read -r FILE; do
     [ -z "$FILE" ] && continue
     case "$FILE" in
-        # -----------------------------------------------------------------
+        # -------------------------------------------------------------
         # ADD YOUR PAGE MAPPINGS HERE
-        # -----------------------------------------------------------------
+        # -------------------------------------------------------------
+        # Each entry maps source-file patterns to the spec + config that
+        # tests that page. Follow this shape:
+        #
+        # <app>/src/<app>.Web/Modules/YourModule.cs|\
+        # <app>/src/<app>.Web/Views/YourPage/*|\
+        # <app>/src/<app>.Web/Scripts/app/yourFeature/*)
+        #     SPECS_TO_RUN="$SPECS_TO_RUN tests/yourfeature.<app>.spec.ts"
+        #     CONFIG="playwright.<app>.config.ts"
+        #     ;;
+        # -------------------------------------------------------------
         *)
             UNMAPPED="$UNMAPPED\n  - $FILE"
             ;;
     esac
 done <<< "$STAGED_UI"
 
-# Deduplicate
 SPECS_TO_RUN=$(echo "$SPECS_TO_RUN" | tr ' ' '\n' | sort -u | grep -v '^$' | tr '\n' ' ')
 
 if [ -n "$UNMAPPED" ]; then
     echo "[pre-commit] No Playwright spec found for:"
     echo -e "$UNMAPPED"
     echo ""
-    echo "[pre-commit] To write a test, open Claude Code and run:"
-    echo "[pre-commit]   /project:new-playwright-test /your-page-url/"
-    echo "[pre-commit] Then add the mapping in .githooks/pre-commit."
+    echo "[pre-commit] To write a test, open Claude Code at the repo root and run:"
+    echo "[pre-commit]   /new-playwright-test /your-page-url/"
+    echo "[pre-commit] Then add the mapping in githooks/.githooks/pre-commit."
     echo ""
 fi
 
@@ -77,20 +84,20 @@ if [ -z "$SPECS_TO_RUN" ]; then
     exit 0
 fi
 
-# 3. Check Playwright is installed
 if [ ! -f "$PLAYWRIGHT_DIR/package.json" ]; then
     echo "[pre-commit] WARNING: DrDoctor.Playwright not found. Skipping."
     exit 0
 fi
 
-# 4. Run the mapped specs
+# 3. Run the mapped specs against the right config (auth setup runs automatically
+#    via the config's `setup` project dependency).
 echo "[pre-commit] Running:"
 for SPEC in $SPECS_TO_RUN; do
-    echo "             - $SPEC"
+    echo "             - $SPEC (config: $CONFIG)"
 done
 echo ""
 
-if ! ( cd "$PLAYWRIGHT_DIR" && npx playwright test $SPECS_TO_RUN --workers=1 --reporter=list,html ); then
+if ! ( cd "$PLAYWRIGHT_DIR" && npx playwright test $SPECS_TO_RUN --config="$CONFIG" --workers=1 --reporter=list,html ); then
     echo ""
     echo "[pre-commit] -----------------------------------------------------------"
     echo "[pre-commit] X  Tests failed. Commit blocked."

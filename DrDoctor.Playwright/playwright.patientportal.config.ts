@@ -19,8 +19,10 @@ export default defineConfig({
         // PatientPortal runs on 7108 (dotnet run) or 44397 (IIS Express)
         baseURL: process.env.PATIENT_PORTAL_URL ?? 'https://localhost:7108',
         ignoreHTTPSErrors: true,
-        trace: 'on',
-        screenshot: 'on',
+        // Diagnostic artefacts are only kept when a test fails — keeps the
+        // green-run output light and CI artefact size manageable.
+        trace: 'retain-on-failure',
+        screenshot: 'only-on-failure',
         video: 'retain-on-failure',
     },
 
